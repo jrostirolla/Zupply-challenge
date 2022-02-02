@@ -1,12 +1,80 @@
+import {useState} from 'react';
 import chessboard from './images/chessboard.png';
 import knight from './images//knight.png';
 import end from './images/endpoint.png';
 import './App.css';
 
-//arrow keys
+// //coordinates
+// function NewGame() {
+//   let [horseX, setHorseX] = useState(0);
+//   let [horseY, setHorseY] = useState(0);
+//   let [crossX, setCrossX] = useState(0);
+//   let [crossY, setCrossY] = useState(0);
+
+//   const min = 1
+//   const max = 8
+
+//   // X coords
+//   let factorXHorse = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100;
+//   let factorXCross = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100;
+
+//   // Y coords
+//   let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+//   let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+
+//   setHorseX(horseX + 90 + factorXHorse);
+//   setHorseY(horseY + 13 + factorYHorse);
+//   setCrossX(crossX + 15 + factorXCross);
+//   setCrossY(crossY + 13 + factorYCross);
+
+//   console.log(horseX, horseY, crossX, crossY);
+
+//   // random number between 1 and 8 THEN minus 5 for even split FOR X ONLY
+//   // random number multiplied by 100
+//   // number added to X and Y of variables
+
+// }
+
 
 
 function App() {
+  
+  
+  //coordinates  
+  let [horseX, setHorseX] = useState("-10px");
+  let [horseY, setHorseY] = useState("313px");
+  let [crossX, setCrossX] = useState("15px");
+  let [crossY, setCrossY] = useState("313px");
+
+  function NewGame() {
+  const min = 1
+  const max = 8
+
+  // X coords
+  let factorXHorse = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100 + 90;
+  let factorXCross = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100 + 15;
+
+  // Y coords
+  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
+  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
+
+  setHorseX(horseX = factorXHorse + 'px');
+  setHorseY(horseY = factorYHorse + 'px');
+  setCrossX(crossX = factorXCross + 'px');
+  setCrossY(crossY = `${factorYCross}px`);
+} 
+
+  let styles = {
+    horse: {
+      left: `${horseX}`,
+      top: `${horseY}`
+    },
+    cross: {
+      left: `${crossX}`,
+      top: `${crossY}`
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,14 +85,10 @@ function App() {
           height: '800px'
         }}>
           <img
-            style={{
-              // put code to move piece here
-            }}
+            style={styles.horse}
           src={knight} className="chessPiece" alt="knight"/>
           <img 
-            style={{
-              // put code to move piece here
-            }}
+            style={styles.cross}
           src={end} className="chessPiece" alt="end"/>
         </div>
         <div className='arrowKeys'>
@@ -38,7 +102,7 @@ function App() {
             <button id='WN' className='direction'>&#11178;</button>
         </div>
         <div>
-          <button className='newGame'>NEW GAME</button>
+          <button className='newGame' onClick={NewGame}>NEW GAME</button>
           <button className='help'>HELP</button>
         </div>
       </header>
@@ -47,15 +111,3 @@ function App() {
 }
 
 export default App;
-
-/* 
-planning:
-
-- set the position of pieces to be state1 and state2
-- write function to randomly assign x and y values
-- build buttons that change x and y values on screen in accordance to how a knight moves
-- figure out help system...
-
-EXTRA:
-- add in score system
-*/
