@@ -52,11 +52,17 @@
     ". . SW SE . ."
     ". . SW SE . .";
     position: absolute;
-    right: 25px
+    right: 2.5%;
+    width: 200px;
+    height: 200px;
+}
+
+.direction {
+  font-size: 25px;
 }
 
 #NW { 
-  grid-area: NW; 
+  grid-area: NW;
 }
 
 #NE { 

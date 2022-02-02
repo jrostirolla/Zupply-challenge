@@ -38,13 +38,14 @@ import './App.css';
 
 
 function App() {
-  
-  
   //coordinates  
-  let [horseX, setHorseX] = useState("-10px");
-  let [horseY, setHorseY] = useState("313px");
-  let [crossX, setCrossX] = useState("15px");
-  let [crossY, setCrossY] = useState("313px");
+  let [horseX, setHorseX] = useState(-10);
+  let [horseY, setHorseY] = useState(313);
+  let [crossX, setCrossX] = useState(15);
+  let [crossY, setCrossY] = useState(313);
+
+  //score
+  let [score, setScore] = useState(0);
 
   function NewGame() {
   const min = 1
@@ -58,23 +59,128 @@ function App() {
   let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
   let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
 
-  setHorseX(horseX = factorXHorse + 'px');
-  setHorseY(horseY = factorYHorse + 'px');
-  setCrossX(crossX = factorXCross + 'px');
-  setCrossY(crossY = `${factorYCross}px`);
+  setHorseX(horseX = factorXHorse);
+  setHorseY(horseY = factorYHorse);
+  setCrossX(crossX = factorXCross);
+  setCrossY(crossY = factorYCross);
 } 
 
+  //movements
+function NW() {
+  if (horseX <= -310) {
+      console.log('error, no more room on X');
+      return;
+  } else if (horseY <= 113) {
+      console.log('error, no more room on Y')
+      return;
+  } else {
+    setHorseX(horseX - 100);
+    setHorseY(horseY - 200);
+  }
+}
+
+function NE() {
+  if (horseX >= 390) {
+      console.log('error, no more room on X');
+      return;
+  } else if (horseY <= 113) {
+      console.log('error, no more room on Y')
+      return;
+  } else {
+    setHorseX(horseX + 100);
+    setHorseY(horseY - 200);
+  }
+}
+
+function EN() {
+  if (horseX >= 290) {
+      console.log('error, no more room on X');
+      return;
+  } else if (horseY <= 13) {
+      console.log('error, no more room on Y')
+      return;
+  } else {
+    setHorseX(horseX + 200);
+    setHorseY(horseY - 100);
+  }
+}
+
+function ES() {
+  if (horseX >= 290) {
+    console.log('error, no more room on X');
+    return;
+  } else if (horseY >= 713) {
+    console.log('error, no more room on Y')
+    return;
+  } else {
+  setHorseX(horseX + 200);
+  setHorseY(horseY + 100);
+  }
+}
+
+function SE() {
+  if (horseX >= 390) {
+    console.log('error, no more room on X');
+    return;
+  } else if (horseY >= 613) {
+    console.log('error, no more room on Y')
+    return;
+  } else {
+  setHorseX(horseX + 100);
+  setHorseY(horseY + 200);
+  }
+}
+
+function SW() {
+  if (horseX <= -310) {
+    console.log('error, no more room on X');
+    return;
+  } else if (horseY >= 613) {
+    console.log('error, no more room on Y')
+    return;
+  } else {
+  setHorseX(horseX - 100);
+  setHorseY(horseY + 200);
+  }
+}
+
+function WS() {
+  if (horseX <= -210) {
+    console.log('error, no more room on X');
+    return;
+  } else if (horseY >= 713) {
+    console.log('error, no more room on Y')
+    return;
+  } else {
+  setHorseX(horseX - 200);
+  setHorseY(horseY + 100);
+  }
+}
+
+function WN() {
+  if (horseX <= -210) {
+    console.log('error, no more room on X');
+    return;
+  } else if (horseY <= 13) {
+    console.log('error, no more room on Y')
+    return;
+  } else {
+  setHorseX(horseX - 200);
+  setHorseY(horseY - 100);
+  }
+}
+
+  //chesspiece positions
   let styles = {
     horse: {
-      left: `${horseX}`,
-      top: `${horseY}`
+      left: `${horseX}px`,
+      top: `${horseY}px`
     },
     cross: {
-      left: `${crossX}`,
-      top: `${crossY}`
+      left: `${crossX}px`,
+      top: `${crossY}px`
     }
   }
-
   return (
     <div className="App">
       <header className="App-header">
@@ -92,14 +198,14 @@ function App() {
           src={end} className="chessPiece" alt="end"/>
         </div>
         <div className='arrowKeys'>
-            <button id='NW' className='direction'>&#11180;</button>
-            <button id='NE' className='direction'>&#11181;</button>
-            <button id='EN' className='direction'>&#10150;</button>
-            <button id='ES' className='direction'>&#10149;</button>
-            <button id='SE' className='direction'>&#11183;</button>
-            <button id='SW' className='direction'>&#11182;</button>
-            <button id='WS' className='direction'>&#11176;</button>
-            <button id='WN' className='direction'>&#11178;</button>
+            <button id='NW' className='direction' onClick={NW}>&#11180;</button>
+            <button id='NE' className='direction' onClick={NE}>&#11181;</button>
+            <button id='EN' className='direction' onClick={EN}>&#10150;</button>
+            <button id='ES' className='direction' onClick={ES}>&#10149;</button>
+            <button id='SE' className='direction' onClick={SE}>&#11183;</button>
+            <button id='SW' className='direction' onClick={SW}>&#11182;</button>
+            <button id='WS' className='direction' onClick={WS}>&#11176;</button>
+            <button id='WN' className='direction' onClick={WN}>&#11178;</button>
         </div>
         <div>
           <button className='newGame' onClick={NewGame}>NEW GAME</button>
