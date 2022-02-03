@@ -4,171 +4,206 @@ import knight from './images//knight.png';
 import end from './images/endpoint.png';
 import './App.css';
 
-// //coordinates
-// function NewGame() {
-//   let [horseX, setHorseX] = useState(0);
-//   let [horseY, setHorseY] = useState(0);
-//   let [crossX, setCrossX] = useState(0);
-//   let [crossY, setCrossY] = useState(0);
-
-//   const min = 1
-//   const max = 8
-
-//   // X coords
-//   let factorXHorse = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100;
-//   let factorXCross = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100;
-
-//   // Y coords
-//   let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
-//   let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
-//   setHorseX(horseX + 90 + factorXHorse);
-//   setHorseY(horseY + 13 + factorYHorse);
-//   setCrossX(crossX + 15 + factorXCross);
-//   setCrossY(crossY + 13 + factorYCross);
-
-//   console.log(horseX, horseY, crossX, crossY);
-
-//   // random number between 1 and 8 THEN minus 5 for even split FOR X ONLY
-//   // random number multiplied by 100
-//   // number added to X and Y of variables
-
-// }
-
-
-
 function App() {
   //coordinates  
-  let [horseX, setHorseX] = useState(-10);
-  let [horseY, setHorseY] = useState(313);
-  let [crossX, setCrossX] = useState(15);
-  let [crossY, setCrossY] = useState(313);
+  let [horseX, setHorseX] = useState(315);
+  let [horseY, setHorseY] = useState(315);
+  let [crossX, setCrossX] = useState(415);
+  let [crossY, setCrossY] = useState(315);
 
   //score
   let [score, setScore] = useState(0);
 
   function NewGame() {
+    // state reset
+  setHorseX(horseX = 315);
+  setHorseY(horseY = 315);
+  setCrossX(crossX = 415);
+  setCrossY(crossY = 315);
+  setScore(score = 0)
+
   const min = 1
-  const max = 8
+  const max = 7
 
   // X coords
-  let factorXHorse = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100 + 90;
-  let factorXCross = ((Math.floor(Math.random() * (max - min)) + min) - 5) * 100 + 15;
+  let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+  let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
 
   // Y coords
-  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
-  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100 + 13;
+  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
 
-  setHorseX(horseX = factorXHorse);
-  setHorseY(horseY = factorYHorse);
-  setCrossX(crossX = factorXCross);
-  setCrossY(crossY = factorYCross);
-} 
+  if (horseX === crossX && horseY === crossY) {
+    next();
+    } else {
+    setHorseX(horseX = factorXHorse + 15);
+      if (horseY <= 0) {
+          setHorseY(horseY = 15)
+        } else {
+          setHorseY(horseY = factorYHorse + 15);
+        }
+    setCrossX(crossX = factorXCross + 15);
+    setCrossY(crossY = factorYCross + 15);
+  }}
+
+
+
+function next() {
+  const min = 1
+  const max = 7
+
+  // X coords
+  let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+  let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+
+  // Y coords
+  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+
+  if (horseX === crossX && horseY === crossY) {
+    next();
+    } else {
+    setHorseX(horseX = factorXHorse + 15);
+      if (horseY <= 0) {
+          setHorseY(horseY = 15)
+        } else {
+          setHorseY(horseY = factorYHorse + 15);
+        }
+    setCrossX(crossX = factorXCross + 15);
+    setCrossY(crossY = factorYCross + 15);
+  }}
+
+  function scoreCheck(testerX, testerY) {
+    if (testerX === crossX && testerY === crossY) {
+      alert('SCOOOOORE!');
+      setScore(score + 1);
+      next()
+    }
+  }
 
   //movements
 function NW() {
-  if (horseX <= -310) {
-      console.log('error, no more room on X');
+  if (horseX <= 15) {
+    alert("invalid move, sorry!");
       return;
-  } else if (horseY <= 113) {
-      console.log('error, no more room on Y')
+  } else if (horseY <= 115) {
+    alert("invalid move, sorry!");
       return;
-  } else {
-    setHorseX(horseX - 100);
-    setHorseY(horseY - 200);
   }
+  let scoreX = horseX - 100;
+  let scoreY = horseY - 200;
+  scoreCheck(scoreX, scoreY);
+  setHorseX(horseX - 100);
+  setHorseY(horseY - 200);
 }
 
 function NE() {
-  if (horseX >= 390) {
-      console.log('error, no more room on X');
+  if (horseX >= 715) {
+      alert("invalid move, sorry!");
       return;
-  } else if (horseY <= 113) {
-      console.log('error, no more room on Y')
+  } else if (horseY <= 115) {
+    alert("invalid move, sorry!");
       return;
-  } else {
-    setHorseX(horseX + 100);
-    setHorseY(horseY - 200);
   }
+    let scoreX = horseX + 100;
+    let scoreY = horseY - 200;
+    scoreCheck(scoreX, scoreY);
+    setHorseX(horseX + 100);
+    setHorseY(horseY - 200)
 }
 
 function EN() {
-  if (horseX >= 290) {
-      console.log('error, no more room on X');
+  if (horseX >= 615) {
+    alert("invalid move, sorry!");
       return;
-  } else if (horseY <= 13) {
-      console.log('error, no more room on Y')
+  } else if (horseY <= 15) {
+    alert("invalid move, sorry!");
       return;
-  } else {
-    setHorseX(horseX + 200);
-    setHorseY(horseY - 100);
   }
+    let scoreX = horseX + 200;
+    let scoreY = horseY - 100;
+    scoreCheck(scoreX, scoreY);
+    setHorseX(horseX + 200);
+    setHorseY(horseY - 100)
 }
 
 function ES() {
-  if (horseX >= 290) {
-    console.log('error, no more room on X');
+  if (horseX >= 615) {
+    alert("invalid move, sorry!");
     return;
-  } else if (horseY >= 713) {
-    console.log('error, no more room on Y')
+  } else if (horseY >= 715) {
+    alert("invalid move, sorry!");
     return;
-  } else {
+  } 
+  let scoreX = horseX + 200;
+  let scoreY = horseY + 100;
+  scoreCheck(scoreX, scoreY);
   setHorseX(horseX + 200);
-  setHorseY(horseY + 100);
-  }
-}
+  setHorseY(horseY + 100)
+};
 
 function SE() {
-  if (horseX >= 390) {
-    console.log('error, no more room on X');
+  if (horseX >= 715) {
+    alert("invalid move, sorry!");
     return;
-  } else if (horseY >= 613) {
-    console.log('error, no more room on Y')
+  } else if (horseY >= 615) {
+    alert("invalid move, sorry!");
     return;
-  } else {
+  } 
+  let scoreX = horseX + 100;
+  let scoreY = horseY + 200;
+  scoreCheck(scoreX, scoreY);
   setHorseX(horseX + 100);
-  setHorseY(horseY + 200);
-  }
-}
+  setHorseY(horseY + 200)
+};
 
 function SW() {
-  if (horseX <= -310) {
-    console.log('error, no more room on X');
+  if (horseX <= 15) {
+    alert("invalid move, sorry!");
     return;
-  } else if (horseY >= 613) {
-    console.log('error, no more room on Y')
+  } else if (horseY >= 615) {
+    alert("invalid move, sorry!");
     return;
-  } else {
+  } 
+  let scoreX = horseX - 100;
+  let scoreY = horseY + 200;
+  scoreCheck(scoreX, scoreY);
   setHorseX(horseX - 100);
-  setHorseY(horseY + 200);
-  }
-}
+  setHorseY(horseY + 200)
+};
 
 function WS() {
-  if (horseX <= -210) {
-    console.log('error, no more room on X');
+  if (horseX <= 115) {
+    alert("invalid move, sorry!");
     return;
-  } else if (horseY >= 713) {
-    console.log('error, no more room on Y')
+  } else if (horseY >= 715) {
+    alert("invalid move, sorry!");
     return;
-  } else {
+  } 
+  let scoreX = horseX - 200;
+  let scoreY = horseY + 100;
+  scoreCheck(scoreX, scoreY);
   setHorseX(horseX - 200);
-  setHorseY(horseY + 100);
-  }
-}
+  setHorseY(horseY + 100)
+};
 
 function WN() {
-  if (horseX <= -210) {
-    console.log('error, no more room on X');
-    return;
-  } else if (horseY <= 13) {
-    console.log('error, no more room on Y')
-    return;
-  } else {
-  setHorseX(horseX - 200);
-  setHorseY(horseY - 100);
-  }
-}
+  if (horseX <= 115) {
+    alert("invalid move, sorry!");
+      return;
+    } else if (horseY <= 15) {
+      alert("invalid move, sorry!");
+      return;
+    }
+    let scoreX = horseX - 200;
+    let scoreY = horseY - 100;
+    scoreCheck(scoreX, scoreY);
+    setHorseX(horseX - 200);
+    setHorseY(horseY - 100);  
+    };
+
+  //help button
+  //check to see if value of endpoint is higher than knight. move it in appropriate direction for either ++, +_
 
   //chesspiece positions
   let styles = {
@@ -188,7 +223,9 @@ function WN() {
           backgroundImage: "url(" + chessboard + ")",
           backgroundSize: '800px',
           width: '800px',
-          height: '800px'
+          height: '800px',
+          position: 'absolute',
+          top: '10px'
         }}>
           <img
             style={styles.horse}
@@ -207,9 +244,10 @@ function WN() {
             <button id='WS' className='direction' onClick={WS}>&#11176;</button>
             <button id='WN' className='direction' onClick={WN}>&#11178;</button>
         </div>
-        <div>
+        <div style={{ position: 'absolute', bottom: '10px' }}>
           <button className='newGame' onClick={NewGame}>NEW GAME</button>
           <button className='help'>HELP</button>
+          <h1 className='score'>Score: {score}</h1>
         </div>
       </header>
     </div>

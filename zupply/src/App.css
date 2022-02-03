@@ -15,7 +15,7 @@
 
 .chessPiece {
   width: 75px;
-  position: relative;
+  position: absolute;
 }
 
 .newGame {
@@ -91,4 +91,11 @@
 
 #WN { 
   grid-area: WN; 
+}
+
+.score {
+  font-size: 40px;
+  position: fixed;
+  top: 10px;
+  left: 50px;
 }
