@@ -14,64 +14,39 @@ function App() {
   //score
   let [score, setScore] = useState(0);
 
+  function next() {
+    const min = 1
+    const max = 7
+
+    // X coords
+    let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+    let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+
+    // Y coords
+    let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+    let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+
+    if (factorXHorse === factorXCross && factorYHorse === factorYCross) {
+        next();
+      } else {
+      setHorseX(horseX = factorXHorse + 15);
+        if (horseY <= 0) {
+            setHorseY(horseY = 15)
+          } else {
+            setHorseY(horseY = factorYHorse + 15);
+          }
+      setCrossX(crossX = factorXCross + 15);
+      setCrossY(crossY = factorYCross + 15);
+    }}
+
   function NewGame() {
-    // state reset
-  setHorseX(horseX = 315);
-  setHorseY(horseY = 315);
-  setCrossX(crossX = 415);
-  setCrossY(crossY = 315);
-  setScore(score = 0)
-
-  const min = 1
-  const max = 7
-
-  // X coords
-  let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
-  let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
-  // Y coords
-  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
-  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
-  if (horseX === crossX && horseY === crossY) {
+    setHorseX(horseX = 315);
+    setHorseY(horseY = 315);
+    setCrossX(crossX = 415);
+    setCrossY(crossY = 315);
+    setScore(score = 0);
     next();
-    } else {
-    setHorseX(horseX = factorXHorse + 15);
-      if (horseY <= 0) {
-          setHorseY(horseY = 15)
-        } else {
-          setHorseY(horseY = factorYHorse + 15);
-        }
-    setCrossX(crossX = factorXCross + 15);
-    setCrossY(crossY = factorYCross + 15);
-  }}
-
-
-
-function next() {
-  const min = 1
-  const max = 7
-
-  // X coords
-  let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
-  let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
-  // Y coords
-  let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
-  let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
-  if (horseX === crossX && horseY === crossY) {
-    next();
-    } else {
-    setHorseX(horseX = factorXHorse + 15);
-      if (horseY <= 0) {
-          setHorseY(horseY = 15)
-        } else {
-          setHorseY(horseY = factorYHorse + 15);
-        }
-    setCrossX(crossX = factorXCross + 15);
-    setCrossY(crossY = factorYCross + 15);
-  }}
+  }
 
   function scoreCheck(testerX, testerY) {
     if (testerX === crossX && testerY === crossY) {
