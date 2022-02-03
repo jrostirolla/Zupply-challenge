@@ -15,26 +15,38 @@ function App() {
   let [score, setScore] = useState(0);
 
   function next() {
+    setHorseX(horseX = 0);
+    setHorseY(horseY = 0);
+    setCrossX(crossX = 0);
+    setCrossY(crossY = 0);
+    
     const min = 1
     const max = 7
 
     // X coords
     let factorXHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+      if (factorXHorse >= 700) {
+        factorXHorse = 700
+      }
     let factorXCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
-
+      if (factorXCross >= 700) {
+        factorXCross = 700
+      }
     // Y coords
     let factorYHorse = (Math.floor(Math.random() * (max - min)) + min) * 100;
+      if (factorYHorse < 15) {
+        factorYHorse = 100
+      };
     let factorYCross = (Math.floor(Math.random() * (max - min)) + min) * 100;
+      if (factorYCross < 15) {
+        factorYCross = 100
+      };
 
     if (factorXHorse === factorXCross && factorYHorse === factorYCross) {
         next();
-      } else {
+      } else {        
+      setHorseY(horseY = factorYHorse + 15);
       setHorseX(horseX = factorXHorse + 15);
-        if (horseY <= 0) {
-            setHorseY(horseY = 15)
-          } else {
-            setHorseY(horseY = factorYHorse + 15);
-          }
       setCrossX(crossX = factorXCross + 15);
       setCrossY(crossY = factorYCross + 15);
     }}
@@ -64,12 +76,14 @@ function NW() {
   } else if (horseY <= 115) {
     alert("invalid move, sorry!");
       return;
-  }
+  }   
   let scoreX = horseX - 100;
   let scoreY = horseY - 200;
-  scoreCheck(scoreX, scoreY);
   setHorseX(horseX - 100);
   setHorseY(horseY - 200);
+
+  scoreCheck(scoreX, scoreY);
+
 }
 
 function NE() {
@@ -79,12 +93,14 @@ function NE() {
   } else if (horseY <= 115) {
     alert("invalid move, sorry!");
       return;
-  }
+  }        
     let scoreX = horseX + 100;
     let scoreY = horseY - 200;
-    scoreCheck(scoreX, scoreY);
     setHorseX(horseX + 100);
     setHorseY(horseY - 200)
+
+    scoreCheck(scoreX, scoreY);
+
 }
 
 function EN() {
@@ -96,10 +112,11 @@ function EN() {
       return;
   }
     let scoreX = horseX + 200;
-    let scoreY = horseY - 100;
-    scoreCheck(scoreX, scoreY);
+    let scoreY = horseY - 100;    
     setHorseX(horseX + 200);
     setHorseY(horseY - 100)
+    scoreCheck(scoreX, scoreY);
+
 }
 
 function ES() {
@@ -112,9 +129,9 @@ function ES() {
   } 
   let scoreX = horseX + 200;
   let scoreY = horseY + 100;
-  scoreCheck(scoreX, scoreY);
   setHorseX(horseX + 200);
-  setHorseY(horseY + 100)
+  setHorseY(horseY + 100)  
+  scoreCheck(scoreX, scoreY);
 };
 
 function SE() {
@@ -127,9 +144,9 @@ function SE() {
   } 
   let scoreX = horseX + 100;
   let scoreY = horseY + 200;
-  scoreCheck(scoreX, scoreY);
   setHorseX(horseX + 100);
-  setHorseY(horseY + 200)
+  setHorseY(horseY + 200)  
+  scoreCheck(scoreX, scoreY);
 };
 
 function SW() {
@@ -142,9 +159,9 @@ function SW() {
   } 
   let scoreX = horseX - 100;
   let scoreY = horseY + 200;
-  scoreCheck(scoreX, scoreY);
   setHorseX(horseX - 100);
-  setHorseY(horseY + 200)
+  setHorseY(horseY + 200)  
+  scoreCheck(scoreX, scoreY);
 };
 
 function WS() {
@@ -157,9 +174,9 @@ function WS() {
   } 
   let scoreX = horseX - 200;
   let scoreY = horseY + 100;
-  scoreCheck(scoreX, scoreY);
   setHorseX(horseX - 200);
   setHorseY(horseY + 100)
+  scoreCheck(scoreX, scoreY);
 };
 
 function WN() {
@@ -172,13 +189,114 @@ function WN() {
     }
     let scoreX = horseX - 200;
     let scoreY = horseY - 100;
-    scoreCheck(scoreX, scoreY);
     setHorseX(horseX - 200);
     setHorseY(horseY - 100);  
+    scoreCheck(scoreX, scoreY);
     };
 
   //help button
-  //check to see if value of endpoint is higher than knight. move it in appropriate direction for either ++, +_
+  function help() {
+    let xAxis = horseX - crossX
+    let yAxis = horseY - crossY
+
+    if (xAxis >= -100 && yAxis <= -200) {
+      SE();
+      if (horseX > 615 || horseY > 515) {
+        return;
+      }
+    } else if (xAxis <= 100 && yAxis <= -200) {
+      SW();
+      if (horseX < 115 || horseY > 515) {
+        return;
+      }
+    } else if (xAxis >= 200 && yAxis <= 100) {
+      WS();
+      if (horseX < 215 || horseY > 615) {
+        return;
+      }
+    } else if (xAxis >= 200 && yAxis >= -100) {
+      WN();
+      if (horseX < 215 || horseY < 115) {
+        return;
+      }
+    } else if (xAxis <= 100 && yAxis >= 200) {
+      NW();
+      if (horseX < 115 || horseY < 215) {
+        return;
+      }
+    } else if (xAxis >= -100 && yAxis >= 200) {
+      NE();
+      if (horseX > 615 || horseY < 215) {
+        return;
+      }
+    } else if (xAxis <= -200 && yAxis <= 100) {
+      EN();
+      if (horseX > 515 || horseY < 115) {
+        return;
+      }
+    } else if (xAxis<= -200 && yAxis >= -100) {
+      ES();
+      if (horseX > 515 || horseY > 615) {
+        return;
+      }
+    } 
+    // distant movers
+    else if (xAxis <= -200 && yAxis <= -200) {
+      NE();
+        if (horseX < 215 || horseY < 215) {
+          EN();
+        } else {
+          console.log('error in NE section - line 233')
+        }
+    } else if (xAxis <= -200 && yAxis >= 200) {
+      SW();
+        if (horseX < 215 || horseY < 215) {
+          WS();
+        } else {
+          console.log('error in SW section - line 240')
+        }
+    } else if (xAxis >= 200 && yAxis >= 200) {
+      SE();
+        if (horseX > 515 || horseY > 515) {
+          ES();
+        } else {
+          console.log('error in SE section - line 247')
+        }
+    } else if (xAxis >= 200 && yAxis <= -200) {
+      NE();
+      if (horseX > 515 || horseY > 515) {
+        EN();
+      } else {
+        console.log('error in NW section - line 254')
+      }
+    }
+    // Reset point
+    else if (xAxis <= 100 || xAxis >= -100 || yAxis <= 100 || yAxis >= -100) {
+      console.log("resetting")
+      NW()
+      if (horseX < 115 || horseY < 215) {
+        NE()
+        if (horseX > 615 || horseY < 215) {
+          EN()
+          if (horseX > 515 || horseY < 115) {
+            ES()
+            if (horseX > 515 || horseY > 615) {
+              SE()
+              if (horseX > 615 || horseY > 515) {
+                SW()
+                if (horseX < 115 || horseY > 515) {
+                  WS()
+                  if (horseX < 215 || horseY > 615) {
+                    WN()
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   //chesspiece positions
   let styles = {
@@ -191,6 +309,8 @@ function WN() {
       top: `${crossY}px`
     }
   }
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -221,7 +341,7 @@ function WN() {
         </div>
         <div style={{ position: 'absolute', bottom: '10px' }}>
           <button className='newGame' onClick={NewGame}>NEW GAME</button>
-          <button className='help'>HELP</button>
+          <button className='help' onClick={help}>HELP</button>
           <h1 className='score'>Score: {score}</h1>
         </div>
       </header>
